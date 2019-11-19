@@ -1,5 +1,9 @@
 # ember-node-botchat
 
+This application was built based on this online tutorial https://pusher.com/tutorials/chat-bot-emberjs-dialogflow
+
+It is a chat bot application built with Node.js and Ember.js using PUSHER's API.
+
 This README outlines the details of collaborating on this Ember application.
 A short introduction of this app could easily go here.
 
