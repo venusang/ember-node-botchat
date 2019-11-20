@@ -3,6 +3,7 @@ import axios from "npm:axios";
 import Pusher from "npm:pusher-js";
 
 export default Component.extend({
+  classNames: ["chat-phase1"],
   chats: null,
   appKey: "88bb13d1744ecc27c52f",
   init() {

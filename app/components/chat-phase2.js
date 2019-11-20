@@ -3,8 +3,6 @@ import { get, set, computed } from "@ember/object";
 import { ChatManager, TokenProvider } from "@pusher/chatkit-client";
 
 export default Component.extend({
-  chats: null,
-  appKey: "88bb13d1744ecc27c52f",
   roomIndex: null,
   candidateRoom: null,
   messageList: computed("roomIndex", function() {
@@ -17,7 +15,7 @@ export default Component.extend({
   }),
   messageText: computed("roomIndex", function() {
     let roomIndex = get(this, "roomIndex");
-    return `message-tex-${roomIndex}`;
+    return `message-text-${roomIndex}`;
   }),
   currentUser: null,
   init() {
