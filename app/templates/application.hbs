@@ -1,13 +1,17 @@
-<div class="container bootstrap snippets">
-<div class="col-md-7 col-xs-12 col-md-offset-2">
-  <div class="panel" id="chat">
-    <div class="panel-heading">
-      <h3 class="panel-title text-center">
-        Realtime Ember Chat Bot
-      </h3>
+<div class="container">
+  <div class="col-md-7 col-xs-12 col-md-offset-2">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="text-center">
+          Phase 1: Auto Chat Bot
+        </h3>
+      </div>
+      <ChatPhase1/>
     </div>
-    <BotApp />
+    <hr>
+    <h3 class="text-center">Phase 2: Multiple Chat Sessions</h3>
+    <ChatPhase2 @roomIndex={{0}} />
+    <ChatPhase2 @roomIndex={{1}} />
+    <ChatPhase2 @roomIndex={{2}} />
   </div>
 </div>
-</div>
-{{outlet}}
