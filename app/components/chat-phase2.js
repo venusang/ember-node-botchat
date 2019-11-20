@@ -1,6 +1,5 @@
 import Component from "@ember/component";
 import { get, set, computed } from "@ember/object";
-import axios from "npm:axios";
 import { ChatManager, TokenProvider } from "@pusher/chatkit-client";
 
 export default Component.extend({
@@ -20,6 +19,7 @@ export default Component.extend({
     let roomIndex = get(this, "roomIndex");
     return `message-tex-${roomIndex}`;
   }),
+  currentUser: null,
   init() {
     this._super(...arguments);
 
@@ -40,6 +40,7 @@ export default Component.extend({
     chatManager
       .connect()
       .then(currentUser => {
+        set(this, "currentUser", currentUser);
         set(this, "candidateRoom", currentUser.rooms[roomIndex].name);
         currentUser.subscribeToRoomMultipart({
           roomId: currentUser.rooms[roomIndex].id,
@@ -78,12 +79,5 @@ export default Component.extend({
 
         console.error("error:", error);
       });
-  },
-  actions: {
-    sendChat() {
-      const text = this.get("message");
-      axios.post("http://localhost:3000/dialogue", { text });
-      this.set("message", "");
-    }
   }
 });
