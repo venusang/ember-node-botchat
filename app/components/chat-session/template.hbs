@@ -1,0 +1,19 @@
+{{#if this.roomIndex}}
+  <div class="chat-session">
+    <div class="card text-center">
+      <div class="card-header">
+        <h4>You are now chatting with {{roomName}}</h4>
+        <p>last message sent: {{room.lastMessageAt}}</p>
+      </div>
+      <div class="card-body">
+        <div class="chat-messages" id={{this.messageList}} />
+      </div>
+      <div class="card-footer text-muted">
+        <form id={{this.messageForm}} {{action "sendReply" on="submit"}}>
+          <input type="text" id={{this.messageText}} placeholder="Write a reply">
+          <input type="submit" class="submitButton" value="+" >
+        </form>
+      </div>
+    </div>
+  </div>
+{{/if}}

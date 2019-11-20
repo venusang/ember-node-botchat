@@ -4,7 +4,8 @@ import { ChatManager, TokenProvider } from "@pusher/chatkit-client";
 
 export default Component.extend({
   roomIndex: null,
-  candidateRoom: null,
+  roomName: null,
+  room: null,
   messageList: computed("roomIndex", function() {
     let roomIndex = get(this, "roomIndex");
     return `message-list-${roomIndex}`;
@@ -18,9 +19,8 @@ export default Component.extend({
     return `message-text-${roomIndex}`;
   }),
   currentUser: null,
-  init() {
-    this._super(...arguments);
-
+  currentUserRooms: null,
+  async loadChatSession() {
     //https://pusher.com/docs/chatkit/reference/javascript
     const tokenProvider = new TokenProvider({
       url:
@@ -35,11 +35,15 @@ export default Component.extend({
 
     let roomIndex = get(this, "roomIndex");
     let messageList = get(this, "messageList");
-    chatManager
+    await chatManager
       .connect()
       .then(currentUser => {
         set(this, "currentUser", currentUser);
-        set(this, "candidateRoom", currentUser.rooms[roomIndex].name);
+        set(this, "currentUserRooms", currentUser.rooms);
+        set(this, "roomName", currentUser.rooms[roomIndex].name);
+        set(this, "room", currentUser.rooms[roomIndex]);
+        const chatMessages = document.getElementById(messageList);
+        chatMessages.innerHTML = "";
         currentUser.subscribeToRoomMultipart({
           roomId: currentUser.rooms[roomIndex].id,
           hooks: {
@@ -77,5 +81,13 @@ export default Component.extend({
 
         console.error("error:", error);
       });
+  },
+  async didUpdateAttrs() {
+    console.log("didUpdateAttrs");
+    await this.loadChatSession();
+  },
+  init() {
+    this._super(...arguments);
+    // this.loadChatSession();
   }
 });

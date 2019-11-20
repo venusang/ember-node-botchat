@@ -1,0 +1,19 @@
+<h3 class="text-center">Phase 2: Multiple Chat Sessions</h3>
+<h3>{{this.userName}}</h3>
+  <div class="grid">
+    <cell>
+      {{#each this.rooms as |room i|}}
+        <ChatUser
+          @selectedUser={{this.selectedUser}}
+          @roomName={{room.name}}
+          @roomIndex={{i}}
+        />
+      {{/each}}
+    </cell>
+    <cell>
+      <ChatSession
+        @roomIndex={{this.selectedUser}}
+        @candidateRoom={{this.userName}}
+      />
+    </cell>
+  </div>
