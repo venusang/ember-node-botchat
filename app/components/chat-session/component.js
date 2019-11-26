@@ -20,13 +20,15 @@ export default Component.extend({
   }),
   currentUser: null,
   currentUserRooms: null,
+  chatManager: null,
   loadChatSession() {
-    const chatManager = this.pusher.createChatManager();
     let roomIndex = get(this, "roomIndex");
     if (!roomIndex) {
       roomIndex = 0;
     }
     let messageList = get(this, "messageList");
+    const chatManager = this.pusher.createChatManager();
+    set(this, "chatManager", chatManager);
     chatManager
       .connect()
       .then(currentUser => {
@@ -73,6 +75,23 @@ export default Component.extend({
         console.error("error:", error);
       });
   },
+  // createUser() {
+  //   let chatManager = get(this, "chatManager");
+  //   currentUser
+  //     .createRoom({
+  //       id: currentUser.rooms[4].id,
+  //       name: "Candidate 5",
+  //       private: false,
+  //       addUserIds: ["candidate5", "recruiter"],
+  //       customData: { foo: 42 }
+  //     })
+  //     .then(room => {
+  //       console.log(`Created room called ${room.name}`);
+  //     })
+  //     .catch(err => {
+  //       console.log(`Error creating room ${err}`);
+  //     });
+  // },
   didUpdateAttrs() {
     console.log("didUpdateAttrs");
     this.loadChatSession();

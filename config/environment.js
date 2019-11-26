@@ -28,7 +28,9 @@ module.exports = function(environment) {
       PUSHER_APP_SECRET: "42949f99d2f23da02d69",
       PUSHER_APP_CLUSTER: "us3",
       PUSHER_DEVELOPER_ACCESS_TOKEN: "6ea3a2e1da0f4efbaaace4980e8c5407",
-      PUSHER_INSTANCE_LOCATOR: "v1:us1:f6dbf701-0367-4880-9ea7-b7f0e8b5fb01"
+      PUSHER_INSTANCE_LOCATOR: "v1:us1:f6dbf701-0367-4880-9ea7-b7f0e8b5fb01",
+      PUSHER_CHATKIT_SECRET_KEY:
+        "dace1965-0856-4584-a3f6-3abc7148d6db:s6Dw9VsnfalgbIlwvkXi4P6TMRy4DBbCXdvwV00doVQ="
     }
   };
 
