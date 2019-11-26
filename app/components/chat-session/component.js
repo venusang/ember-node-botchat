@@ -1,9 +1,9 @@
 import Component from "@ember/component";
 import { get, set, computed } from "@ember/object";
-import { ChatManager, TokenProvider } from "@pusher/chatkit-client";
+import { inject as service } from "@ember/service";
 
 export default Component.extend({
-  roomIndex: null,
+  pusher: service(),
   roomName: null,
   room: null,
   messageList: computed("roomIndex", function() {
@@ -20,22 +20,14 @@ export default Component.extend({
   }),
   currentUser: null,
   currentUserRooms: null,
-  async loadChatSession() {
-    //https://pusher.com/docs/chatkit/reference/javascript
-    const tokenProvider = new TokenProvider({
-      url:
-        "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/f6dbf701-0367-4880-9ea7-b7f0e8b5fb01/token"
-    });
-
-    const chatManager = new ChatManager({
-      instanceLocator: "v1:us1:f6dbf701-0367-4880-9ea7-b7f0e8b5fb01",
-      userId: "recruiter",
-      tokenProvider: tokenProvider
-    });
-
+  loadChatSession() {
+    const chatManager = this.pusher.createChatManager();
     let roomIndex = get(this, "roomIndex");
+    if (!roomIndex) {
+      roomIndex = 0;
+    }
     let messageList = get(this, "messageList");
-    await chatManager
+    chatManager
       .connect()
       .then(currentUser => {
         set(this, "currentUser", currentUser);
@@ -78,16 +70,15 @@ export default Component.extend({
       })
       .catch(error => {
         /* eslint-disable */
-
         console.error("error:", error);
       });
   },
-  async didUpdateAttrs() {
+  didUpdateAttrs() {
     console.log("didUpdateAttrs");
-    await this.loadChatSession();
+    this.loadChatSession();
   },
   init() {
     this._super(...arguments);
-    // this.loadChatSession();
+    this.loadChatSession();
   }
 });
