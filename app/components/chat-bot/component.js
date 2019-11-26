@@ -1,19 +1,16 @@
 import Component from "@ember/component";
 import axios from "npm:axios";
-import Pusher from "npm:pusher-js";
+import { inject as service } from "@ember/service";
 
 export default Component.extend({
   classNames: ["chat-bot"],
   chats: null,
-  appKey: "88bb13d1744ecc27c52f",
+  pusher: service(),
   init() {
     this._super(...arguments);
     this.set("chats", []);
-    let pusher = new Pusher(this.appKey, {
-      cluster: "us3",
-      forceTLS: true
-    });
-    const channel = pusher.subscribe("bot");
+
+    let channel = this.pusher.subscribeToChannel();
     channel.bind("bot-response", data => {
       const response = {
         speech: data.speech,

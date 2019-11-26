@@ -20,7 +20,7 @@ const pusher = new Pusher({
   forceTLS: true
 });
 
-const dialogFlowURL = "https://api.dialogflow.com/v1/query?v=20150910";
+const dialogFlowURL = process.env.DIALOGFLOW_URL;
 const token = process.env.DEVELOPER_ACCESS_TOKEN;
 
 app.set("port", process.env.PORT || 3000);

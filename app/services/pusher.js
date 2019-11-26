@@ -2,35 +2,21 @@ import Service from "@ember/service";
 import { set, get } from "@ember/object";
 import Pusher from "npm:pusher-js";
 import { ChatManager, TokenProvider } from "@pusher/chatkit-client";
+import ENV from "../config/environment";
 
 export default Service.extend({
-  appKey: "88bb13d1744ecc27c52f",
   pusher: null,
   chats: null,
   userName: null,
   rooms: null,
-  tokenProviderUrl:
-    "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/f6dbf701-0367-4880-9ea7-b7f0e8b5fb01/token",
-  createPusherObject() {
-    set(
-      this,
-      "pusher",
-      new Pusher(this.appKey, {
-        cluster: "us3",
-        forceTLS: true
-      })
-    );
-  },
-  createPusherChannel() {
-    get(this, "pusher")
-      .subscribe("bot")
-      .bind("bot-response", data => {
-        const response = {
-          speech: data.speech,
-          query: data.query
-        };
-        this.get("chats").pushObject(response);
-      });
+  appKey: ENV.APP.PUSHER_APP_KEY,
+  tokenProviderUrl: ENV.APP.PUSHER_TOKEN_PROVIDER_URL,
+  connectToChannel() {
+    //this is for channels
+    return new Pusher(this.appKey, {
+      cluster: "us3",
+      forceTLS: true
+    });
   },
   createTokenProvider() {
     //this is needed for chatkit
@@ -39,10 +25,14 @@ export default Service.extend({
     });
     set(this, "tokenProvider", tokenProvider);
   },
+  subscribeToChannel() {
+    const pusher = this.connectToChannel();
+    return pusher.subscribe("bot");
+  },
   async createChatManager() {
     await this.createTokenProvider();
     return new ChatManager({
-      instanceLocator: "v1:us1:f6dbf701-0367-4880-9ea7-b7f0e8b5fb01",
+      instanceLocator: ENV.APP.PUSHER_INSTANCE_LOCATOR,
       userId: "recruiter",
       tokenProvider: get(this, "tokenProviderUrl")
     });
