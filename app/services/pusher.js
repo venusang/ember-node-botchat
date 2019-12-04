@@ -1,5 +1,5 @@
 import Service from "@ember/service";
-import Pusher from "npm:pusher-js";
+import Pusher from "pusher-js";
 import { ChatManager, TokenProvider } from "@pusher/chatkit-client";
 import ENV from "../config/environment";
 

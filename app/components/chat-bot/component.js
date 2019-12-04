@@ -1,5 +1,5 @@
 import Component from "@ember/component";
-import axios from "npm:axios";
+import axios from "axios";
 import { inject as service } from "@ember/service";
 
 export default Component.extend({
