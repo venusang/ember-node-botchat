@@ -21,5 +21,11 @@ export default Component.extend({
         /* eslint-disable */
         console.error("error:", error);
       });
+  },
+  actions: {
+    showChat(index) {
+      set(this, "roomIndex", index);
+      set(this, "selectedUser", index);
+    }
   }
 });

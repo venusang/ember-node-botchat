@@ -3,11 +3,7 @@
   <div class="grid">
     <cell>
       {{#each this.rooms as |room i|}}
-        <ChatUser
-          @selectedUser={{this.selectedUser}}
-          @roomName={{room.name}}
-          @roomIndex={{i}}
-        />
+        <button {{action "showChat" i }} type="button" class="chat-user btn btn-light" >{{room.name}}</button>
       {{/each}}
     </cell>
     <cell>

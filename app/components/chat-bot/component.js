@@ -18,6 +18,12 @@ export default Component.extend({
       };
       this.get("chats").pushObject(response);
     });
+
+    // document.cookie = "same-site-cookie=foo; SameSite=None; Secure";
+    // document.cookie = "cross-site-cookie=bar; SameSite=None; Secure";
+    //setcookie('cross-site-cookie', 'name', ['samesite' => 'None', 'secure' => true]);
+    /* eslint-disable */
+    // console.log("document.cookie", document.cookie);
   },
   actions: {
     sendChat() {
