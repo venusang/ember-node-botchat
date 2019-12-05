@@ -46,6 +46,9 @@ app.post("/dialogue", (req, res) => {
         speech: response.data.result.fulfillment.speech
       };
       pusher.trigger("bot", "bot-response", responseData);
+    })
+    .catch(error => {
+      console.log("error", error);
     });
 });
 
