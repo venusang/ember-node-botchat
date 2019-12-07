@@ -8,7 +8,7 @@
       <div class="chat-messages" id={{this.messageList}} />
     </div>
     <div class="card-footer text-muted">
-      <form id={{this.messageForm}} {{action "sendReply" on="submit"}}>
+      <form id={{this.messageForm}}>
         <input type="text" id={{this.messageText}} placeholder="Write a reply">
         <input type="submit" class="submitButton" value="+" >
       </form>

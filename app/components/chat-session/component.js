@@ -70,11 +70,17 @@ export default Component.extend({
         form.addEventListener("submit", e => {
           e.preventDefault();
           const input = document.getElementById(messageText);
-          currentUser.sendSimpleMessage({
-            text: input.value,
-            roomId: currentUser.rooms[roomIndex].id
-          });
-          input.value = "";
+          if (input.value === "") {
+            console.log(
+              "here is where you should put some sort of notification"
+            );
+          } else {
+            currentUser.sendSimpleMessage({
+              text: input.value,
+              roomId: currentUser.rooms[roomIndex].id
+            });
+            input.value = "";
+          }
         });
       })
       .catch(error => {
